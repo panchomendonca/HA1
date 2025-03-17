@@ -1,0 +1,48 @@
+```mermaid
+flowchart TB
+    %% Se definen los nodos y conectores %%
+
+    %% Nodo central (medico)
+    M((Medico))
+
+    %% Subproceso: Autorizaciones
+    subgraph A[Autorizaciones]
+    A1[Reclamo HC / contacto medicos]
+    end
+
+    %% Subproceso: Camas / Internacion Domiciliaria
+    subgraph C[Camas / Int. Domiciliaria]
+    C1[Solicitud HC / contacto medico]
+    C2[Llamados a medicos p/ altas]
+    C3[Medicacion: info medico]
+    C4[Int. dom.: aviso medico]
+    C5[Ambulancia: aviso medicos]
+    C6[Estudios: complem. con medico]
+    C7[Tel/WSP a medicos]
+    end
+
+    %% Subproceso: Emergencia
+    subgraph E[Emergencia Adulto/Ped]
+    E1[Pase de medicos]
+    E2[Tel a medicos]
+    end
+
+    %% Subproceso: Endoscopia / Hemodinamia
+    subgraph H[Endoscopia/Hemodinamia]
+    H1[WSP con medicos]
+    H2[Tel con medicos]
+    end
+
+    %% Flechas hacia el Medico
+    A1 -->|Tel/Mail/WSP| M
+    C1 -->|Tel/Mail/WSP| M
+    C2 -->|Tel| M
+    C3 -->|Tel/Mail| M
+    C4 -->|Tel/Mail/WSP| M
+    C5 -->|Mail/Tel| M
+    C6 -->|Mail/Tel| M
+    C7 -->|Tel/WSP| M
+    E1 -->|Presencial| M
+    E2 -->|Tel| M
+    H1 -->|WSP| M
+    H2 -->|Tel| M
